@@ -1,3 +1,5 @@
+#' Makes a graph of the WorldPopulation data
+#'
 #' Takes WorldPopulation data set and given a country name, returns a graph of
 #' the population of that country from 1950 to 2020.
 #'
@@ -9,19 +11,21 @@
 #' @export
 CountryPopulation <- function( country_name )
 {
-  data(WorldPopulation, package=AndersonWorldPopulation)
+  WorldPopulation <- AndersonWorldPopulation::WorldPopulation
 
   if( !(country_name %in% WorldPopulation$Country_Name))
   {
-    stop(paste('Error! ', country_name, ' does not exisit in the data.', sep=''))
+    stop(paste('Error! ', country_name, ' does not exist in the data.', sep=''))
   }
 
-  plot_func <- WorldPopulation %>%
-    filter( str_detect(Country_Name, paste('^', country_name, '$', sep='')) )
+  plot_func <- dplyr::filter(WorldPopulation,
+                            stringr::str_detect(Country_Name,
+                                                paste('^', country_name, '$',
+                                                      sep='')))
 
-  ggplot(plot_func,
-         aes(x=Year, y=Population)) +
-    geom_line() +
-    labs(x="Year", y="Population(in 1000s)") +
-    labs(title=paste(country_name))
+  ggplot2::ggplot(plot_func,
+         ggplot2::aes(x=Year, y=Population)) +
+    ggplot2::geom_line() +
+    ggplot2::labs(x="Year", y="Population(in 1000s)") +
+    ggplot2::labs(title=paste(country_name))
 }
