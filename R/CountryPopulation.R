@@ -9,7 +9,7 @@
 #' @export
 CountryPopulation <- function( country_name )
 {
-  data(WorldPopulation, AndersonWorldPopulation)
+  data(WorldPopulation, package=AndersonWorldPopulation)
 
   if( !(country_name %in% WorldPopulation$Country_Name))
   {
