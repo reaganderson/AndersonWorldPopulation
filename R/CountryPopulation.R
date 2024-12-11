@@ -9,7 +9,9 @@
 #' @export
 CountryPopulation <- function( country_name )
 {
-  if( !(country_name %in%  WorldPopulation$Country_Name))
+  data(WorldPopulation, AndersonWorldPopulation)
+
+  if( !(country_name %in% WorldPopulation$Country_Name))
   {
     stop(paste('Error! ', country_name, ' does not exisit in the data.', sep=''))
   }
